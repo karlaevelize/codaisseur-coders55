@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import fetchPosts from "../store/posts/actions";
 import { selectPosts } from "../store/posts/selectors";
+import { Link } from "react-router-dom";
 
 //How to fetch data with a thunk
 //1. Write an async function in action (thunk) and make axios request
@@ -39,7 +40,7 @@ export default function Homepage() {
         : posts.map(post => {
           return (
             <div>
-              <p><b>{post.title}</b></p>
+             <Link to={`/post/${post.id}`}><p><b>{post.title}</b></p></Link>
               <p>{post.content}</p>
             </div>
           )

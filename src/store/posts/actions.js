@@ -20,6 +20,6 @@ export default async function fetchPosts(dispatch, getState){
   const offset = getState().posts.posts.length
 
   const response = await axios.get(`${API_URL}/posts?limit=2&offset=${offset}`)
-  console.log("response", response)
+  // console.log("response", response)
   dispatch(postsFetched(response.data.rows))
 }
