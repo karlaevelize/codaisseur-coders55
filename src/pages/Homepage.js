@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import fetchPosts from "../store/posts/actions";
+import { selectPosts } from "../store/posts/selectors";
 
 //How to fetch data with a thunk
 //1. Write an async function in action (thunk) and make axios request
@@ -13,9 +14,18 @@ import fetchPosts from "../store/posts/actions";
 //7. Import the selector in the component
 //8. Map over the data
 
+//Display only five posts
+//1. url => add limit and offset
+//2. Make a dynamic offset
+//3. modify the case in the reducer, so it keeps the previous post and add the new ones
+//4. make a button to fetch next 5 posts
+
 export default function Homepage() {
 
   const dispatch = useDispatch()
+
+  const posts = useSelector(selectPosts)
+  // console.log("posts", posts)
 
   useEffect(() => {
     dispatch(fetchPosts)
@@ -23,7 +33,18 @@ export default function Homepage() {
 
   return (
     <div>
-      <h1>Homepage</h1>
+      <h1>List of posts</h1>
+      {!posts 
+        ? "Loading"
+        : posts.map(post => {
+          return (
+            <div>
+              <p><b>{post.title}</b></p>
+              <p>{post.content}</p>
+            </div>
+          )
+        })}
+        <button onClick={() => dispatch(fetchPosts)}>More posts</button>
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function postSliceReducer(state = initialState, action) {
       // console.log("action", action.payload)
       return {
         ...state,
-        posts: [...action.payload] 
+        posts: [...state.posts, ...action.payload]
       }
     }
     default: {
